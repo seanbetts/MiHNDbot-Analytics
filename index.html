@@ -30,10 +30,10 @@
     <!-- use the Okta widget to power authentication! -->
     <script type="text/javascript">
         var oktaSignIn = new OktaSignIn({
-        baseUrl: "{{ https://dev-512183.okta.com }}",
-        clientId: "{{ 0oa17c2rrqLjoUuzE357 }}",
+        baseUrl: "https://dev-512183.okta.com",
+        clientId: "0oa17c2rrqLjoUuzE357",
         authParams: {
-            issuer: "{{ https://dev-512183.okta.com }}/oauth2/default",
+            issuer: "https://dev-512183.okta.com/oauth2/default",
             responseType: ['token', 'id_token'],
             display: 'page'
         }
