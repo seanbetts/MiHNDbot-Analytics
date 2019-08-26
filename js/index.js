@@ -1860,7 +1860,7 @@ function displayProfile () {
       }
       return comparison
     }
-    
+
     var sortedQnAArray = qnaArray.sort(compare);
     var messages = sortedQnAArray.map(response => response.Response)
 
@@ -1922,17 +1922,17 @@ var oktaSignIn = new OktaSignIn({
     display: 'page'
   }
 });
-    
+
 if (oktaSignIn.token.hasTokensInUrl()) {
   oktaSignIn.token.parseTokensFromUrl(
     // If we get here, the user just logged in.
     function success(res) {
       var accessToken = res[0];
       var idToken = res[1]
-    
+
       oktaSignIn.tokenManager.add('accessToken', accessToken);
       oktaSignIn.tokenManager.add('idToken', idToken);
-    
+
       window.location.hash='';
       document.getElementById("messageBox").innerHTML = "Hello, " + idToken.claims.email + "! You just logged in! :)";
     },
