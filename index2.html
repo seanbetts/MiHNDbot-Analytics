@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<head>
+    <html lang="en">
+    <meta charset="UTF-8">
+
+    <!------- Style Sheets ------>
+    <link rel="stylesheet" type="text/css" href="./resources/main.css">
+    <link rel="stylesheet" type="text/css" href="./resources/flatpickr/dark.css">
+    <link rel="stylesheet" type="text/css" href="./resources/flatpickr/style.css">
+    <!------- Style Sheets ------>
+
+    <!------- Javascripts ------->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script type="text/javascript" src="./js/flatpickr/index.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes"></script>
+    <script type="text/javascript" src="./js/charts-js/chartjs-plugin-datalabels.min.js"></script>
+    <script type="text/javascript" src="./js/index.js"></script>
+    <!------- Javascripts ------->
+
+    <!------- Page Title -------->
+    <title>MiHNDbot Analytics</title>
+    <!------- Page Title -------->
+</head>
+
+<body>
+
+<div class="sidenav">
+    <div class="logo"><img src="https://mihndbotblob.blob.core.windows.net/resources/MiHND-graphic-logo-black-circle-inverted-rounded.png" alt="MiHNDbot Logo" style="width:75px;height:75px;padding:5px;"></div>
+    <div class="menuSpacer"></div>
+    <button class="pageLink" onclick="openPage('dailyCharts', this, 'black')" id="defaultOpen">dailyCharts</button>
+    <button class="pageLink" onclick="openPage('dailyRawData', this, 'black')">dailyRawData</button>
+    <button class="pageLink" onclick="openPage('monthlyCharts', this, 'black')">monthlyCharts</button>
+    <button class="pageLink" onclick="openPage('yearlyCharts', this, 'black')">yearlyCharts</button>
+    <button class="pageLink" onclick="openPage('userProfiles', this, 'black')">userProfiles</button>
+    <button class="pageLink" onclick="openPage('oopsData', this, 'black')">oopsData</button>
+</div>
+
+ <div id="main" class="main">
+    <div id="title" class="title">
+        <h1 style="padding-left:10px;padding-top:7px">MiHNDbot Analytics</h1>
+        <div id="today" class="todayDate">
+            <script>
+                var today = moment(new Date());
+                var eDisplayMoment = document.getElementById('today');
+                eDisplayMoment.innerHTML = today.format('dddd Do MMMM');
+            </script>
+        </div>
+    </div>
+
+    <div id="dailyCharts" class="chartsWrapper">
+        <div class="header">
+            <div class = "datePicker">
+                <input class="dateSelector" type="text" id="dailyDate" placeholder="Select Date..." data-input>
+            </div>
+        </div>
+        <div id = "dailyChartWrapper" class ="chartWrapper">
+            <div class="chart">
+                <div id="dailyTotalUsers" class="messagesText"></div>
+                <canvas id="dailyUsersChart" width="200" height="150"></canvas>
+            </div>
+            <div class="chart">
+                <div id="dailyTotalConversations" class="messagesText"></div>
+                <canvas id="dailyConversationsChart" width="200" height="150"></canvas>
+            </div>
+            <div class="chart">
+                <div id="dailyTotalMessages" class="messagesText"></div>
+                <canvas id="dailyMessagesChart" width="200" height="150"></canvas>
+            </div>
+            <div class="chartWide">
+                <div id="dailyTotalQuestions" class="messagesText"></div>
+                <canvas id="dailyQuestionsChart" width="100" height="24"></canvas>
+            </div>
+            <div class="chartWide">
+                <div id="dailyTotalTime" class="messagesText"></div>
+                <canvas id="dailyTimeChart" width="100" height="24"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div id="dailyRawData" class="chartsWrapper">
+        <div class="tableWrapper">
+            <table id="rawDataTable">
+                <tr>
+                    <th colspan="3">Details</th>
+                    <th colspan="2">Content</th>
+                    <th colspan="4">Other</th>
+                    <th colspan="3">IDs</th>
+                </tr>
+                <tr>
+                    <th class="row-1 row-Time">Message Time</th>
+                    <th class="row-2 row-Channel">Channel</th>
+                    <th class="row-3 row-Sender">Sender Name</th>
+                    <th class="row-4 row-Message">Message</th>
+                    <th class="row-5 row-Answer">Answer</th>
+                    <th class="row-6 row-QRText">Quick Reply Text</th>
+                    <th class="row-7 row-QRPayload">Quick Reply Payload</th>
+                    <th class="row-8 row-QnAQuestion">QnA Questions</th>
+                    <th class="row-9 row-Prompts">Prompts</th>
+                    <th class="row-10 row-ConversationID">Conversation ID</th>
+                    <th class="row-11 row-MessageID">Message ID</th>
+                    <th class="row-12 row-SenderID">Sender ID</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="monthlyCharts" class="chartsWrapper">
+        <div class="header">
+            <div class = "datePicker">
+                <input class="dateSelector" type="text" id="monthlyDate" placeholder="Select Date..." data-input>
+            </div>
+        </div>
+        <div class ="chartWrapper">
+                <div class="chart">
+                    <div id="monthlyTotalUsers" class="messagesText"></div>
+                    <canvas id="monthlyUsersChart" width="200" height="150"></canvas>
+                </div>
+                <div class="chart">
+                    <div id="monthlyTotalConversations" class="messagesText"></div>
+                    <canvas id="monthlyConversationsChart" width="200" height="150"></canvas>
+                </div>
+                <div class="chart">
+                    <div id="monthlyTotalMessages" class="messagesText"></div>
+                    <canvas id="monthlyMessagesChart" width="200" height="150"></canvas>
+                </div>
+                <div class="chartWide">
+                    <div id="monthlyTotalQuestions" class="messagesText"></div>
+                    <canvas id="monthlyQuestionsChart" width="100" height="24"></canvas>
+                </div>
+                <div class="chartWide">
+                    <div id="monthlyTotalTime" class="messagesText"></div>
+                    <canvas id="monthlyTimeChart" width="100" height="24"></canvas>
+                </div>
+            </div>
+    </div>
+
+    <div id="yearlyCharts" class="chartsWrapper">
+            <div class ="chartWrapper">
+                    <div class="chart">
+                        <div id="yearlyTotalUsers" class="messagesText"></div>
+                        <canvas id="yearlyUsersChart" width="200" height="150"></canvas>
+                    </div>
+                    <div class="chart">
+                        <div id="yearlyTotalConversations" class="messagesText"></div>
+                        <canvas id="yearlyConversationsChart" width="200" height="150"></canvas>
+                    </div>
+                    <div class="chart">
+                        <div id="yearlyTotalMessages" class="messagesText"></div>
+                        <canvas id="yearlyMessagesChart" width="200" height="150"></canvas>
+                    </div>
+                    <div class="chartWide">
+                        <div id="yearlyTotalQuestions" class="messagesText"></div>
+                        <canvas id="yearlyQuestionsChart" width="100" height="24"></canvas>
+                    </div>
+                    <div class="chartWide">
+                        <div id="yearlyTotalTime" class="messagesText"></div>
+                        <canvas id="yearlyTimeChart" width="100" height="24"></canvas>
+                    </div>
+                </div>
+    </div>
+
+    <div id="userProfiles" class="chartsWrapper">
+        <div class="profileGridContainer">
+            <div class = "profileSelector">
+                <div class = "profileSelectorTitle">
+                    <h3>Profiles</h3>
+                </div>
+                <div class="profileSelection">
+                    <input type="text" id="profileSearch" onkeyup="profileSearch()" placeholder="Search.." title="Type in a profile">
+                    <div id="profileListHolder"></div>
+                </div>
+            </div>
+
+            <div class = "profileViewer">
+                <div class = "profileDetails">
+                    <div class = "profileImage">
+                        <img src="./resources/person-logo.png" alt="profileImage">
+                    </div>
+                    <div class = "profileDescription">
+                        <div class = "profileDescription1">
+                            <div class = profileElementContainer>
+                                <text><b>ID:</b></text>
+                                <div id = "profileID" class = "profileElementValue">null</div>
+                            </div>
+                            <div class = profileElementContainer>
+                                <text><b>Name:</b></text>
+                                <div id = "profileName" class = "profileElementValue">null</div>
+                            </div>
+                            <div class = profileElementContainer>
+                                <text><b>Channel:</b></text>
+                                <div id = "profileChannel" class = "profileElementValue">null</div>
+                            </div>
+                            <div class = profileElementContainer>
+                                <text><b>Last Interaction:</b></text>
+                                <div id = "lastInteractionDate" class = "profileElementValue">null</div>
+                            </div>
+                        </div>
+                        <div class = "profileDescription2">
+                            <text><b># Conversations:</b></text>
+                            <div id = "numberOfConversations" style = "margin-bottom: 10px">null</div>
+                            <text><b># Messages:</b></text>
+                            <div id = "numberOfMessages">null</div>
+                        </div>
+                    </div>
+                </div>
+                <div class = "profileTopTags">
+                    <div class="profileChartWide">
+                        <canvas id="usersTopTagsChart" width="100" height="28"></canvas>
+                    </div>
+                </div>
+                <div class = "profileTopQuestions">
+                    <div class="profileChartWide">
+                        <canvas id="usersTopQuestionsChart" width="100" height="28"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class = "messagesViewer">
+                <div class = "messageViewerTitle">
+                    <h3>Messages</h3>
+                </div>
+                <div class="messageSelection">
+                    <input type="text" id="messageSearch" onkeyup="messageSearch()" placeholder="Search.." title="Type in a profile">
+                    <ul id="messageList"></ul>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div id="oopsData" class="chartsWrapper">
+        <div class="tableWrapper">
+            <table id="oopsDataTable">
+                <tr>
+                    <th class="row-1 row-Time">Message Time</th>
+                    <th class="row-2 row-Channel">Channel</th>
+                    <th class="row-4 row-Message">Message</th>
+                    <th class="row-5 row-Answer">Answer</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!----- Webpage Scripts ----->
+<script>
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+
+    // Get transctipts data from server
+    getDailyTranscripts(yesterdaysDataURL);
+    getMonthlyTranscripts(thisMonthsDataURL);
+    getYearlyTranscripts(thisYearsDataURL);
+</script>
+<!----- Webpage Scripts ----->
+
+</body>
+
+</html>
