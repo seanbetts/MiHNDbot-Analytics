@@ -1,0 +1,33 @@
+{
+  "name": "analytics",
+  "version": "1.0.0",
+  "description": "Analytics for MiHNDbot",
+  "private": true,
+  "dependencies": {
+    "backbone": "^1.4.0",
+    "backbone-localstorage": "^0.3.2",
+    "chart.js": "^2.8.0",
+    "chartjs-plugin-colorschemes": "^0.4.0",
+    "chartjs-plugin-datalabels": "^0.6.0",
+    "flatpickr": "^4.6.2",
+    "jquery": "^3.4.1",
+    "jshint": "^2.10.2",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
+    "zingchart": "^2.8.7"
+  },
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-standard": "^13.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0"
+  },
+  "scripts": {
+    "test": "npm start"
+  },
+  "author": "Sean Betts",
+  "license": "ISC",
+  "keywords": []
+}
