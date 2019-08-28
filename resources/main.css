@@ -124,9 +124,35 @@ body, html {
 .loginMessage {
     display: flex;
     flex-direction: column;
+    margin-top: 10px;
     padding: 20px;
     border: 2px solid whitesmoke;
     border-radius: 10px;
+}
+
+#okta-login-container {
+    margin-bottom: 20px;
+}
+
+#okta-sign-in.auth-container.main-container {
+    border: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+
+#okta-sign-in.auth-container .okta-sign-in-header {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 2px solid whitesmoke;
+    border-bottom: none;
+}
+
+#okta-sign-in.no-beacon .auth-content {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 2px solid whitesmoke;
+    border-top: none;
 }
 
 .header{

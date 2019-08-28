@@ -1920,6 +1920,12 @@ var oktaSignIn = new OktaSignIn({
     issuer: "https://dev-512183.okta.com/oauth2/default",
     responseType: ['token', 'id_token'],
     display: 'page'
+  },
+  logo: 'https://mihndbotblob.blob.core.windows.net/resources/MiHND-graphic-logo-black-circle-inverted-rounded.png',
+  features: {
+    registration: false,
+    rememberMe: true,
+    selfServiceUnlock: false
   }
 });
 
@@ -1930,13 +1936,21 @@ if (oktaSignIn.token.hasTokensInUrl()) {
       var accessToken = res[0];
       var idToken = res[1]
 
+      // Say hello to the person who just signed in:
+      console.log('Hello, ' + idToken.claims.email);
+
+      // Save the tokens for later use, e.g. if the page gets refreshed:
       oktaSignIn.tokenManager.add('accessToken', accessToken);
       oktaSignIn.tokenManager.add('idToken', idToken);
 
+      // Remove the tokens from the window location hash
       window.location.hash='';
+
+      // Sends login message
       document.getElementById("messageBox").innerHTML = "Hello, " + idToken.claims.email + "! You just logged in! :)";
     },
     function error(err) {
+      // handle errors as needed
       console.error(err);
     }
   );
@@ -1944,13 +1958,19 @@ if (oktaSignIn.token.hasTokensInUrl()) {
   oktaSignIn.session.get(function (res) {
     // If we get here, the user is already signed in.
     if (res.status === 'ACTIVE') {
+      console.log('Welcome back, ' + res.login);
       document.getElementById("messageBox").innerHTML = "Hello, " + res.login + "! You are *still* logged in! :)";
       return;
     }
+    // No session, show the login form
     oktaSignIn.renderEl(
       { el: '#okta-login-container' },
-      function success(res) {},
+      function success(res) {
+          // Nothing to do in this case, the widget will automatically redirect
+          // the user to Okta for authentication, then back to this page if successful
+      },
       function error(err) {
+        // handle errors as needed
         console.error(err);
       }
     );
