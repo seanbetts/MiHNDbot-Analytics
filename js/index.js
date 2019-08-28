@@ -1914,10 +1914,10 @@ function openPage (pageName, elmnt) {
 
 // Use the Okta widget to power authentication!
 var oktaSignIn = new OktaSignIn({
-  baseUrl: "https://dev-512183.okta.com",
+  baseUrl: "https://login.mihnd.co.uk",
   clientId: "0oa17c2rrqLjoUuzE357",
   authParams: {
-    issuer: "https://dev-512183.okta.com/oauth2/default",
+    issuer: "https://login.mihnd.co.uk/oauth2/default",
     responseType: ['token', 'id_token'],
     display: 'page'
   },
