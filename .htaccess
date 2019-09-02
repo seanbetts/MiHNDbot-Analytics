@@ -1,3 +1,0 @@
- AuthUserFile ./resources/.htpasswd
- AuthGroupFile /dev/null AuthName "Name of Area" AuthType
- Basic require valid-user 
