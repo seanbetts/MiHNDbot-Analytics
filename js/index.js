@@ -883,8 +883,7 @@ function monthlyQuestionsChart (result) {
             display: false
           },
           ticks: {
-            beginAtZero: true,
-            stepSize: 1
+            beginAtZero: true
           }
         }]
       },
@@ -1293,8 +1292,7 @@ function yearlyQuestionsChart (result) {
             display: false
           },
           ticks: {
-            beginAtZero: true,
-            stepSize: 1
+            beginAtZero: true
           }
         }]
       },
