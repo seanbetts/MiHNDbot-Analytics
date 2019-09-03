@@ -31,6 +31,8 @@
             position: relative;
             z-index: 1;
             background: #FFFFFF;
+            border: 2px solid whitesmoke;
+            border-radius: 10px;
             max-width: 360px;
             margin: 0 auto 100px;
             padding: 45px;
@@ -52,7 +54,7 @@
         .staticrypt-form .staticrypt-decrypt-button {
             text-transform: uppercase;
             outline: 0;
-            background: #4CAF50;
+            background: #111;
             width: 100%;
             border: 0;
             padding: 15px;
@@ -62,7 +64,7 @@
         }
 
         .staticrypt-form .staticrypt-decrypt-button:hover, .staticrypt-form .staticrypt-decrypt-button:active, .staticrypt-form .staticrypt-decrypt-button:focus {
-            background: #43A047;
+            background: #111;
         }
 
         .staticrypt-html {
@@ -71,11 +73,11 @@
 
         .staticrypt-body {
             margin-bottom: 1em;
-            background: #76b852; /* fallback for old browsers */
-            background: -webkit-linear-gradient(right, #76b852, #8DC26F);
-            background: -moz-linear-gradient(right, #76b852, #8DC26F);
-            background: -o-linear-gradient(right, #76b852, #8DC26F);
-            background: linear-gradient(to left, #76b852, #8DC26F);
+            background: #111; /* fallback for old browsers */
+            background: -webkit-linear-gradient(right, #111, #111);
+            background: -moz-linear-gradient(right, #111, #111);
+            background: -o-linear-gradient(right, #111, #111);
+            background: linear-gradient(to left, #111, #111);
             font-family: "Arial", sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -117,7 +119,8 @@
 <div class="staticrypt-page">
     <div class="staticrypt-form">
         <div class="staticrypt-instructions">
-            <p class="staticrypt-title">Protected Page</p>
+            <img src="https://mihndbotblob.blob.core.windows.net/resources/MiHND-graphic-logo-black-circle-inverted-rounded.png" alt="MiHNDbot Logo" style="width:75px;height:75px;padding:5px;">
+            <p class="staticrypt-title">MiHNDBot Analytics</p>
             <p></p>
         </div>
 
@@ -127,10 +130,10 @@
             <input id="staticrypt-password"
                    type="password"
                    name="password"
-                   placeholder="passphrase"
+                   placeholder="Enter password..."
                    autofocus/>
 
-            <input type="submit" class="staticrypt-decrypt-button" value="DECRYPT"/>
+            <input type="submit" class="staticrypt-decrypt-button" value="ENTER"/>
         </form>
     </div>
 
