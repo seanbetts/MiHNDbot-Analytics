@@ -34,8 +34,7 @@
 <div class="sidenav">
     <div class="logo"><img src="https://mihndbotblob.blob.core.windows.net/resources/MiHND-graphic-logo-black-circle-inverted-rounded.png" alt="MiHNDbot Logo" style="width:75px;height:75px;padding:5px;"></div>
     <div class="menuSpacer"></div>
-    <button class="pageLink" onclick="openPage('login', this, 'black')" id="defaultOpen">Login</button>
-    <button class="pageLink" onclick="openPage('dailyCharts', this, 'black')">dailyCharts</button>
+    <button class="pageLink" onclick="openPage('dailyCharts', this, 'black')" id="defaultOpen">dailyCharts</button>
     <button class="pageLink" onclick="openPage('dailyRawData', this, 'black')">dailyRawData</button>
     <button class="pageLink" onclick="openPage('monthlyCharts', this, 'black')">monthlyCharts</button>
     <button class="pageLink" onclick="openPage('yearlyCharts', this, 'black')">yearlyCharts</button>
@@ -52,16 +51,6 @@
                 var eDisplayMoment = document.getElementById('today');
                 eDisplayMoment.innerHTML = today.format('dddd Do MMMM');
             </script>
-        </div>
-    </div>
-
-    <div id="login" class="chartsWrapper">
-        <div class="loginWrapper">
-            <div id="messageBox" class="loginMessage">
-                <h2>You are not logged in. Get outta here! Shoo! >:S</h2>
-            </div>
-            <!-- where the sign-in form will be displayed -->
-            <div id="okta-login-container"></div>
         </div>
     </div>
 
