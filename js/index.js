@@ -1674,7 +1674,7 @@ function displayProfile () {
     var filteredResult = result.filter(id => id.MessageSenderID === profileID)
     var userTags = filteredResult.map(tag => tag.Metadata)
 
-    var reducedUserTags = userTags.reduce((acc, userTag) => acc + userTag.value)
+    var reducedUserTags = userTags.reduce((acc, userTag) => acc + userTag.value, 0)
 
     console.log(reducedUserTags)
 
