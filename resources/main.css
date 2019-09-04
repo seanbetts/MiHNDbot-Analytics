@@ -199,7 +199,6 @@ body, html {
 .tableWrapper {
     overflow: scroll;
     margin-top: 10px;
-    width: 100%;
 }
 
 .chart {
