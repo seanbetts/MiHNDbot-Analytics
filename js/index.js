@@ -1421,6 +1421,7 @@ function yearlyTimeChart (result) {
 // Get all dates with daily data available
 function allDailyDates (result) {
   // Get dates with messages
+
   function getMessagesByDay (data, channelFilter) {
     const channels = {}
 
@@ -1445,7 +1446,6 @@ function allDailyDates (result) {
       // Uses `for...in` to loop through object properties
       channels[channel] = channels[channel].length
     }
-
     return channels
   }
 
@@ -1540,7 +1540,8 @@ function allMonthlyDates (result) {
     flatpickr('#monthlyDate', {
       altInput: true,
       altFormat: 'D J F',
-      dateFormat: 'd/m/Y',
+      dateFormat: 'MM/YYYY',
+      enable: formatedDates,
       defaultDate: moment(new Date()).format('MM'),
       plugins: [
         new monthSelectPlugin({
