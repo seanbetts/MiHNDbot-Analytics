@@ -1672,7 +1672,9 @@ function displayProfile () {
 
   function userTopTags (result) {
     var filteredResult = result.filter(id => id.MessageSenderID === profileID)
-    var userTags = filteredResult.map(tag => tag.Metadata)
+    var userTags = if(filteredResult.Metadata != null) {
+      filteredResult.map(tag => tag.Metadata)
+    }
 
     var groupedUserTags = userTags.reduce(function (prev, cur) {
       prev[cur] = (prev[cur] || 0) + 1
