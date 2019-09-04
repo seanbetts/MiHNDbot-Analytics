@@ -582,12 +582,14 @@ function dailyTimeChart (result) {
 // Create daily raw data table
 function dailyRawDataTable (result) {
   var table = document.getElementById('rawDataTable')
-  document.getElementById('rawDataTable').innerHTML = '<tr><th colspan="3">Details</th><th colspan="2">Content</th><th colspan="4">Other</th><th colspan="3">IDs</th></tr><tr><th class="row-1 row-Time">Message Time</th><th class="row-2 row-Channel">Channel</th><th class="row-3 row-Sender">Sender Name</th><th class="row-4 row-Message">Message</th><th class="row-5 row-Answer">Answer</th><th class="row-6 row-QRText">Quick Reply Text</th><th class="row-7 row-QRPayload">Quick Reply Payload</th><th class="row-8 row-QnAQuestion">QnA Questions</th><th class="row-9 row-Prompts">Prompts</th><th class="row-10 row-ConversationID">Conversation ID</th><th class="row-11 row-MessageID">Message ID</th><th class="row-12 row-SenderID">Sender ID</th></tr></table>'
+  document.getElementById('rawDataTable').innerHTML = '<tr><th colspan="3">Details</th><th colspan="2">Content</th><th colspan="4">Other</th><th colspan="3">IDs</th></tr><tr><th class="row-1 row-Time">Message Time</th><th class="row-2 row-Channel">Channel</th><th class="row-3 row-Sender">Sender Name</th><th class="row-4 row-Message">Message</th><th class="row-5 row-Answer">Answer</th><th class="row-6 row-QRText">Quick Reply Text</th><th class="row-7 row-QRPayload">Quick Reply Payload</th><th class="row-8 row-QnAQuestion">QnA Questions</th><th class="row-9 row-Prompts">Metadata</th><th class="row-10 row-ConversationID">Conversation ID</th><th class="row-11 row-MessageID">Message ID</th><th class="row-12 row-SenderID">Sender ID</th></tr></table>'
 
   result.forEach(function (object) {
     var tr = document.createElement('tr')
     var messageTime = moment(object.MessageTime).format('DD MMM HH:MM.ss')
-    var question = object.Question.slice(2, -2)
+    if (object.Question != null) {
+      var question = object.Question.slice(2, -2)
+    }
 
     tr.innerHTML =
     '<td>' + messageTime + '</td>' +
