@@ -598,7 +598,7 @@ function dailyRawDataTable (result) {
     '<td>' + object.QuickReplyDisplayText + '</td>' +
     '<td>' + object.QuickReplyPayload + '</td>' +
     '<td>' + question + '</td>' +
-    '<td>' + object.FollowUpPrompts + '</td>' +
+    '<td>' + object.Metadata + '</td>' +
     '<td>' + object.ConversationID + '</td>' +
     '<td>' + object.MessageID + '</td>' +
     '<td>' + object.MessageSenderID + '</td>'
