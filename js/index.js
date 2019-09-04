@@ -1674,6 +1674,8 @@ function displayProfile () {
     var filteredResult = result.filter(id => id.MessageSenderID === profileID)
     var userTags = filteredResult.map(tag => tag.Metadata)
 
+    console.log(userTags)
+
     var groupedUserTags = userTags.reduce(function (prev, cur) {
       prev[cur] = (prev[cur] || 0) + 1
       return prev
@@ -1701,8 +1703,6 @@ function displayProfile () {
     var userArrayKeys = sortKeysDescending(groupedUserTags)
     var userArrayValues = sortValuesDescending(groupedUserTags)
     var userCombinedArray = combineKeysAndValues(userArrayKeys, userArrayValues)
-
-    console.log(userCombinedArray)
 
     // Set data and labels
     var labels = Object.keys(userCombinedArray)
