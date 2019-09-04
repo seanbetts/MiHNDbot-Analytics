@@ -1671,11 +1671,8 @@ function displayProfile () {
   }
 
   function userTopTags (result) {
-    console.log(result)
     var filteredResult = result.filter(id => id.MessageSenderID === profileID)
-    console.log(filteredResult)
     var userTags = filteredResult.map(tag => tag.Metadata)
-    console.log(userTags)
 
     var groupedUserTags = userTags.reduce(function (prev, cur) {
       prev[cur] = (prev[cur] || 0) + 1
