@@ -1698,11 +1698,11 @@ function displayProfile () {
       return result
     }
 
-    console.log(groupedUserTags)
-
     var userArrayKeys = sortKeysDescending(groupedUserTags)
     var userArrayValues = sortValuesDescending(groupedUserTags)
     var userCombinedArray = combineKeysAndValues(userArrayKeys, userArrayValues)
+
+    console.log(userCombinedArray)
 
     // Set data and labels
     var labels = Object.keys(userCombinedArray)
