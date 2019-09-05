@@ -1472,19 +1472,19 @@ function allDailyDates (result) {
       },
       onChange: function (selectedDates, dateStr, instance) {
         Chart.helpers.each(Chart.instances, function (instance) {
-          if (instance.chart.canvas.id === "dailyUsersChart") {
+          if (instance.chart.canvas.id === 'dailyUsersChart') {
             instance.destroy();
             return;
-          } else if (instance.chart.canvas.id === "dailyConversationsChart") {
+          } else if (instance.chart.canvas.id === 'dailyConversationsChart') {
             instance.destroy();
             return;
-          } else if (instance.chart.canvas.id === "dailyMessagesChart") {
+          } else if (instance.chart.canvas.id === 'dailyMessagesChart') {
             instance.destroy();
             return;
-          } else if (instance.chart.canvas.id === "dailyQuestionsChart") {
+          } else if (instance.chart.canvas.id === 'dailyQuestionsChart') {
             instance.destroy();
             return;
-          } else if (instance.chart.canvas.id === "dailyTimeChart") {
+          } else if (instance.chart.canvas.id === 'dailyTimeChart') {
             instance.destroy();
             return;
           }
@@ -1554,19 +1554,19 @@ function allMonthlyDates (result) {
       ],
       onChange: function (selectedDates, dateStr, instance) {
         Chart.helpers.each(Chart.instances, function (instance) {
-          if (instance.chart.canvas.id === "monthlyUsersChart") {
+          if (instance.chart.canvas.id === 'monthlyUsersChart') {
             instance.destroy();
             return;
-          } else if (instance.chart.canvas.id === "monthlyConversationsChart") {
+          } else if (instance.chart.canvas.id === 'monthlyConversationsChart') {
             instance.destroy();
             return;
-          } else if (instance.chart.canvas.id === "monthlyMessagesChart") {
+          } else if (instance.chart.canvas.id === 'monthlyMessagesChart') {
             instance.destroy();
             return;
-          } else if (instance.chart.canvas.id === "monthlyQuestionsChart") {
+          } else if (instance.chart.canvas.id === 'monthlyQuestionsChart') {
             instance.destroy();
             return;
-          } else if (instance.chart.canvas.id === "monthlyTimeChart") {
+          } else if (instance.chart.canvas.id === 'monthlyTimeChart') {
             instance.destroy();
             return;
           }
@@ -1674,10 +1674,40 @@ function displayProfile () {
     var filteredResult = result.filter(id => id.MessageSenderID === profileID)
     var userTags = filteredResult.map(tag => tag.Metadata)
 
-    var groupedUserTags = userTags.reduce(function (prev, cur) {
-      prev[cur] = (prev[cur] || 0) + 1
-      return prev
-    }, {})
+    // map and parse userTags
+    const parsed = userTags.map(tag => {
+      if (typeof tag === 'string') {
+        try {
+          return JSON.parse(tag)
+        } catch (err) {
+          return tag
+        }
+      } else {
+        return tag
+      }
+    });
+
+    function isPlainObj (obj) {
+      return typeof obj === 'object' && obj.constructor === Object;
+    }
+
+    function walk (value, acc) {
+      if ( Array.isArray(value) ) {
+        value.forEach(value => walk(value, acc))
+      } else if (value && isPlainObj(value)) {
+        Object.values(value).forEach(value => {
+          walk(value, acc)
+        });
+      } else {
+        acc[value] = (acc[value] || 0) + 1
+      }
+
+      return acc;
+    }
+
+    const groupedUserTags = parsed.reduce((acc, value) => {
+      return walk(value, acc);
+    }, {});
 
     // Sort chart keys descending
     function sortKeysDescending (array) {
@@ -1701,8 +1731,6 @@ function displayProfile () {
     var userArrayKeys = sortKeysDescending(groupedUserTags)
     var userArrayValues = sortValuesDescending(groupedUserTags)
     var userCombinedArray = combineKeysAndValues(userArrayKeys, userArrayValues)
-
-    console.log(userCombinedArray)
 
     // Set data and labels
     var labels = Object.keys(userCombinedArray)
