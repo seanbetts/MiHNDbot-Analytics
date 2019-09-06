@@ -1872,8 +1872,8 @@ function allMonthlyDates (result) {
     flatpickr('#monthlyDate', {
       altInput: true,
       altFormat: 'D J F',
-      dateFormat: 'MM/YYYY',
-      enable: formatedDates,
+      dateFormat: 'd/m/Y',
+      // enable: formatedDates,
       defaultDate: moment(new Date()).format('MM'),
       plugins: [
         new monthSelectPlugin({
