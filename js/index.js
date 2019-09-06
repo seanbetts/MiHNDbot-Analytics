@@ -25,6 +25,7 @@ function getDailyTranscripts (url) {
     data.then(dailyUsersChart),
     data.then(dailyConversationsChart),
     data.then(dailyMessagesChart),
+    data.then(dailyTagsChart),
     data.then(dailyQuestionsChart),
     data.then(dailyTimeChart),
     data.then(dailyRawDataTable)
@@ -66,6 +67,7 @@ function getMonthlyTranscripts (url) {
     data.then(monthlyUsersChart),
     data.then(monthlyConversationsChart),
     data.then(monthlyMessagesChart),
+    data.then(monthlyTagsChart),
     data.then(monthlyQuestionsChart),
     data.then(monthlyTimeChart)
   ])
@@ -106,6 +108,7 @@ function getYearlyTranscripts (url) {
     data.then(yearlyUsersChart),
     data.then(yearlyConversationsChart),
     data.then(yearlyMessagesChart),
+    data.then(yearlyTagsChart),
     data.then(yearlyQuestionsChart),
     data.then(yearlyTimeChart),
     data.then(allDailyDates),
@@ -368,6 +371,115 @@ function dailyMessagesChart (result) {
   })
 }
 
+// Create daily tags chart
+function dailyTagsChart (result) {
+  var userTags = result.map(tag => tag.Metadata)
+
+  // map and parse userTags
+  const parsed = userTags.map(tag => {
+    if (typeof tag === 'string') {
+      try {
+        return JSON.parse(tag)
+      } catch (err) {
+        return tag
+      }
+    } else {
+      return tag
+    }
+  });
+
+  function isPlainObj (obj) {
+    return typeof obj === 'object' && obj.constructor === Object;
+  }
+
+  function walk (value, acc) {
+    if ( Array.isArray(value) ) {
+      value.forEach(value => walk(value, acc))
+    } else if (value && isPlainObj(value)) {
+      Object.values(value).forEach(value => {
+        walk(value, acc)
+      });
+    } else {
+      acc[value] = (acc[value] || 0) + 1
+    }
+
+    return acc;
+  }
+
+  const groupedUserTags = parsed.reduce((acc, value) => {
+    return walk(value, acc);
+  }, {});
+
+  // Sort chart keys descending
+  function sortKeysDescending (array) {
+    var keys = keys = Object.keys(array)
+    return keys.sort(function (a, b) { return array[b] - array[a] })
+  };
+
+  // Sort chart values descending
+  function sortValuesDescending (array) {
+    var keys = keys = Object.keys(array)
+    return keys.sort(function (a, b) { return array[b] - array[a] }).map(key => array[key])
+  };
+
+  // Combine chart keys and values
+  function combineKeysAndValues (keys, values) {
+    var result = {}
+    for (var i = 0; i < keys.length; i++) { result[keys[i]] = values[i] }
+    return result
+  }
+
+  var userArrayKeys = sortKeysDescending(groupedUserTags)
+  var userArrayValues = sortValuesDescending(groupedUserTags)
+  var userCombinedArray = combineKeysAndValues(userArrayKeys, userArrayValues)
+
+  // Set data and labels
+  var labels = Object.keys(userCombinedArray)
+  var data = Object.values(userCombinedArray)
+
+  // Create chart
+  var ctx = document.getElementById('dailyTagsChart').getContext('2d')
+  var chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: '# of Messages',
+        data: data
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Tags'
+      },
+      legend: {
+        display: false
+      },
+      scales: {
+        yAxes: [{
+          gridLines: {
+            display: false
+          },
+          ticks: {
+            beginAtZero: true
+          }
+        }],
+      },
+      plugins: {
+        colorschemes: {
+          scheme: chartColorScheme
+        },
+        datalabels: {
+          display: function (context) {
+            return context.dataset.data[context.dataIndex] !== 0 // or >= 1 or ...
+          }
+        }
+      }
+    }
+  })
+}
+
 // Create daily questions chart
 function dailyQuestionsChart (result) {
   // Get chart data
@@ -437,7 +549,7 @@ function dailyQuestionsChart (result) {
     options: {
       title: {
         display: true,
-        text: 'Messages Received'
+        text: 'Questions'
       },
       legend: {
         display: false
@@ -807,6 +919,115 @@ function monthlyMessagesChart (result) {
   })
 }
 
+// Create monthly tags chart
+function monthlyTagsChart (result) {
+  var userTags = result.map(tag => tag.Metadata)
+
+  // map and parse userTags
+  const parsed = userTags.map(tag => {
+    if (typeof tag === 'string') {
+      try {
+        return JSON.parse(tag)
+      } catch (err) {
+        return tag
+      }
+    } else {
+      return tag
+    }
+  });
+
+  function isPlainObj (obj) {
+    return typeof obj === 'object' && obj.constructor === Object;
+  }
+
+  function walk (value, acc) {
+    if ( Array.isArray(value) ) {
+      value.forEach(value => walk(value, acc))
+    } else if (value && isPlainObj(value)) {
+      Object.values(value).forEach(value => {
+        walk(value, acc)
+      });
+    } else {
+      acc[value] = (acc[value] || 0) + 1
+    }
+
+    return acc;
+  }
+
+  const groupedUserTags = parsed.reduce((acc, value) => {
+    return walk(value, acc);
+  }, {});
+
+  // Sort chart keys descending
+  function sortKeysDescending (array) {
+    var keys = keys = Object.keys(array)
+    return keys.sort(function (a, b) { return array[b] - array[a] })
+  };
+
+  // Sort chart values descending
+  function sortValuesDescending (array) {
+    var keys = keys = Object.keys(array)
+    return keys.sort(function (a, b) { return array[b] - array[a] }).map(key => array[key])
+  };
+
+  // Combine chart keys and values
+  function combineKeysAndValues (keys, values) {
+    var result = {}
+    for (var i = 0; i < keys.length; i++) { result[keys[i]] = values[i] }
+    return result
+  }
+
+  var userArrayKeys = sortKeysDescending(groupedUserTags)
+  var userArrayValues = sortValuesDescending(groupedUserTags)
+  var userCombinedArray = combineKeysAndValues(userArrayKeys, userArrayValues)
+
+  // Set data and labels
+  var labels = Object.keys(userCombinedArray)
+  var data = Object.values(userCombinedArray)
+
+  // Create chart
+  var ctx = document.getElementById('monthlyTagsChart').getContext('2d')
+  var chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: '# of Messages',
+        data: data
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Tags'
+      },
+      legend: {
+        display: false
+      },
+      scales: {
+        yAxes: [{
+          gridLines: {
+            display: false
+          },
+          ticks: {
+            beginAtZero: true
+          }
+        }],
+      },
+      plugins: {
+        colorschemes: {
+          scheme: chartColorScheme
+        },
+        datalabels: {
+          display: function (context) {
+            return context.dataset.data[context.dataIndex] !== 0 // or >= 1 or ...
+          }
+        }
+      }
+    }
+  })
+}
+
 // Create monthly questions chart
 function monthlyQuestionsChart (result) {
   // Get chart data
@@ -874,7 +1095,7 @@ function monthlyQuestionsChart (result) {
     options: {
       title: {
         display: true,
-        text: 'Messages Received'
+        text: 'Questions'
       },
       legend: {
         display: false
@@ -1216,6 +1437,115 @@ function yearlyMessagesChart (result) {
   })
 }
 
+// Create daily tags chart
+function yearlyTagsChart (result) {
+  var userTags = result.map(tag => tag.Metadata)
+
+  // map and parse userTags
+  const parsed = userTags.map(tag => {
+    if (typeof tag === 'string') {
+      try {
+        return JSON.parse(tag)
+      } catch (err) {
+        return tag
+      }
+    } else {
+      return tag
+    }
+  });
+
+  function isPlainObj (obj) {
+    return typeof obj === 'object' && obj.constructor === Object;
+  }
+
+  function walk (value, acc) {
+    if ( Array.isArray(value) ) {
+      value.forEach(value => walk(value, acc))
+    } else if (value && isPlainObj(value)) {
+      Object.values(value).forEach(value => {
+        walk(value, acc)
+      });
+    } else {
+      acc[value] = (acc[value] || 0) + 1
+    }
+
+    return acc;
+  }
+
+  const groupedUserTags = parsed.reduce((acc, value) => {
+    return walk(value, acc);
+  }, {});
+
+  // Sort chart keys descending
+  function sortKeysDescending (array) {
+    var keys = keys = Object.keys(array)
+    return keys.sort(function (a, b) { return array[b] - array[a] })
+  };
+
+  // Sort chart values descending
+  function sortValuesDescending (array) {
+    var keys = keys = Object.keys(array)
+    return keys.sort(function (a, b) { return array[b] - array[a] }).map(key => array[key])
+  };
+
+  // Combine chart keys and values
+  function combineKeysAndValues (keys, values) {
+    var result = {}
+    for (var i = 0; i < keys.length; i++) { result[keys[i]] = values[i] }
+    return result
+  }
+
+  var userArrayKeys = sortKeysDescending(groupedUserTags)
+  var userArrayValues = sortValuesDescending(groupedUserTags)
+  var userCombinedArray = combineKeysAndValues(userArrayKeys, userArrayValues)
+
+  // Set data and labels
+  var labels = Object.keys(userCombinedArray)
+  var data = Object.values(userCombinedArray)
+
+  // Create chart
+  var ctx = document.getElementById('yearlyTagsChart').getContext('2d')
+  var chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: '# of Messages',
+        data: data
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Tags'
+      },
+      legend: {
+        display: false
+      },
+      scales: {
+        yAxes: [{
+          gridLines: {
+            display: false
+          },
+          ticks: {
+            beginAtZero: true
+          }
+        }],
+      },
+      plugins: {
+        colorschemes: {
+          scheme: chartColorScheme
+        },
+        datalabels: {
+          display: function (context) {
+            return context.dataset.data[context.dataIndex] !== 0 // or >= 1 or ...
+          }
+        }
+      }
+    }
+  })
+}
+
 // Create yearly questions chart
 function yearlyQuestionsChart (result) {
   // Get chart data
@@ -1283,7 +1613,7 @@ function yearlyQuestionsChart (result) {
     options: {
       title: {
         display: true,
-        text: 'Messages Received'
+        text: 'Questions'
       },
       legend: {
         display: false
