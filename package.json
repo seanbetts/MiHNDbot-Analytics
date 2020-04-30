@@ -11,7 +11,7 @@
     "chartjs-plugin-datalabels": "^0.6.0",
     "eslint-utils": "^1.4.2",
     "flatpickr": "^4.6.2",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jshint": "^2.10.2",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
