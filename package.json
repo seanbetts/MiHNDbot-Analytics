@@ -6,7 +6,7 @@
   "dependencies": {
     "backbone": "^1.4.0",
     "backbone-localstorage": "^0.3.2",
-    "chart.js": "^2.8.0",
+    "chart.js": "^2.9.4",
     "chartjs-plugin-colorschemes": "^0.4.0",
     "chartjs-plugin-datalabels": "^0.6.0",
     "eslint-utils": "^1.4.2",
