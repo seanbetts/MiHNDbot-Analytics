@@ -14,7 +14,7 @@
     "jquery": "^3.4.1",
     "jshint": "^2.10.2",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "zingchart": "^2.8.7"
   },
   "devDependencies": {
